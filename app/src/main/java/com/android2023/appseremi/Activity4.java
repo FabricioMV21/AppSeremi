@@ -1,10 +1,19 @@
 package com.android2023.appseremi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -15,7 +24,7 @@ import java.sql.Statement;
 public class Activity4 extends AppCompatActivity {
 
     TextView txtRutTeaOut, txtNombreOut, txtGrado;
-
+    DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +43,33 @@ public class Activity4 extends AppCompatActivity {
     }
 
     public void ConsultarNombreyGradoTEA() {
+        String RutPaciente = getIntent().getStringExtra("RutPaciente");
+        // Obtener solo los numeros del rut, para la consulta a la BD
+        String RutTeaN = obtenerSoloNumerosRut(RutPaciente);
+        databaseReference = FirebaseDatabase.getInstance().getReference("PersonaTEA");
+        // Obtener el nombre del cesfam
+        databaseReference.child(RutTeaN).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String gradoTEA = dataSnapshot.child("GradoTEA").getValue(String.class);
+                    txtGrado.setText(gradoTEA);
 
+                    }
+                 else {
+                    Toast.makeText(Activity4.this, "Rut Incorrecto", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Activity4.this, "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+    public String obtenerSoloNumerosRut(String rutConFormato) {
+        // Elimina caracteres no numéricos
+        return rutConFormato.replaceAll("[^0-9]", "");
     }
 }
