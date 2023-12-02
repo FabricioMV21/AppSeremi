@@ -35,6 +35,21 @@ public class Activity4 extends AppCompatActivity {
 
         // Recibir los rut desde la activity n°2.
         String RutPaciente = getIntent().getStringExtra("RutPaciente");
+
+        //Pasar al siguiente activity y enviar el rutTea
+        txtGrado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(
+                        getApplicationContext(),
+                        Activity5.class);
+                intent.putExtra("RutPaciente", RutPaciente);
+                startActivity(intent);
+
+            }
+        });
+
+
         // Asignar el rut al campo de texto.
         txtRutTeaOut.setText(RutPaciente);
 
@@ -54,6 +69,8 @@ public class Activity4 extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     String gradoTEA = dataSnapshot.child("GradoTEA").getValue(String.class);
                     txtGrado.setText(gradoTEA);
+                    String nombre = dataSnapshot.child("Nombre").getValue(String.class);
+                    txtNombreOut.setText(nombre);
 
                     }
                  else {
