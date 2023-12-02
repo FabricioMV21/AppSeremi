@@ -20,10 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 public class Activity3 extends AppCompatActivity {
     TextView txtRutTea, txtRutTutor, txtNombreCen;
     ImageView incrementa;
-    int Contador = 0;
     DatabaseReference databaseReference;
-
     ImageView ubicacion;
+    int Contador = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,14 +33,15 @@ public class Activity3 extends AppCompatActivity {
         txtNombreCen = findViewById(R.id.txtNomCentro);
         ubicacion    = findViewById(R.id.imgMap);
 
-
         // Recibir los rut desde la activity n°2.
-        String RutPaciente = getIntent().getStringExtra("RutPaciente");
+        String RutPaciente = getIntent().getStringExtra("RutTEA");
         String RutTutor = getIntent().getStringExtra("RutTutor");
+        String NombreCesfam = getIntent().getStringExtra("NombreCesfam");
 
+        // Mostrar Datos en el activity
         txtRutTea.setText(RutPaciente);
         txtRutTutor.setText(RutTutor);
-
+        txtNombreCen.setText("Ficha Clinica " + NombreCesfam);
 
         txtRutTea.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,44 +71,35 @@ public class Activity3 extends AppCompatActivity {
             }
         });
 
-        // Metodo
-        CesfamPorRut();
+        ubicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ObtenerCordenadas();
+            }
+        });
     }
-
-    public void CesfamPorRut(){
-        String RutPaciente = getIntent().getStringExtra("RutPaciente");
-        // Obtener solo los numeros del rut, para la consulta a la BD
+    public void ObtenerCordenadas() {
+        String RutPaciente = getIntent().getStringExtra("RutTEA");
         String RutTeaN = obtenerSoloNumerosRut(RutPaciente);
         databaseReference = FirebaseDatabase.getInstance().getReference("PersonaTEA");
-        // Obtener el nombre del cesfam
-        databaseReference.child(RutTeaN).orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+
+        databaseReference.child(RutTeaN).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                        // Obtener el nombre identificador, en este caso el cesfam
-                        String cesfamKey = childSnapshot.getKey();
-                        txtNombreCen.setText(cesfamKey);
-                        // Ubicacion de acuerdo al Cesfam
-                        ubicacion.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                // Acceder a la latitud y longitud desde la BD
-                                Double latitudCesfam = childSnapshot.child("Latitud").getValue(Double.class);
-                                Double longitudCesfam = childSnapshot.child("Longitud").getValue(Double.class);
+                    // Acceder a la LATITUD Y LONGITUD
+                    String NombreCesfam = getIntent().getStringExtra("NombreCesfam");
+                    Double Latitud = dataSnapshot.child("Cesfam").child("Latitud").getValue(Double.class);
+                    Double Longitud = dataSnapshot.child("Cesfam").child("Longitud").getValue(Double.class);
+                    // Pasar las cordenadas a la siguiente Activity
+                    Intent intent = new Intent(Activity3.this, Activity3Map.class);
+                    intent.putExtra("Latitud", Latitud);
+                    intent.putExtra("Longitud", Longitud);
+                    intent.putExtra("NombreCesfam", NombreCesfam);
+                    startActivity(intent);
 
-                                // Pasar Los datos a la siguiente actividad
-                                Intent intent = new Intent(Activity3.this,Activity3Map.class);
-                                intent.putExtra("Nombrecesfam",cesfamKey);
-                                intent.putExtra("Latitud", latitudCesfam);
-                                intent.putExtra("Longitud",longitudCesfam);
-                                startActivity(intent);
-                            }
-                        });
-                        break;
-                    }
                 } else {
-                    Toast.makeText(Activity3.this, "Rut Incorrecto", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity3.this, "No Existe La Ubicacion", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -117,11 +108,8 @@ public class Activity3 extends AppCompatActivity {
                 Toast.makeText(Activity3.this, "ERROR", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
     public String obtenerSoloNumerosRut(String rutConFormato) {
-        // Elimina caracteres no numéricos
         return rutConFormato.replaceAll("[^0-9]", "");
     }
-
 }

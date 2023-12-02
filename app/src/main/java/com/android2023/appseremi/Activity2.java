@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,25 +13,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.Locale;
 
 public class Activity2 extends AppCompatActivity {
-    private TextToSpeech tts;
     EditText rutTeaIn, rutTutorIn;
     Button buscar;
     TextView txtinicio, txtNtea, txtNtutor;
     ImageView incrementa, lectura;
+    DatabaseReference databaseReference;
     int Contador = 0;
+    private TextToSpeech tts;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
-        // Titulo Aplicacion
-        txtinicio = findViewById(R.id.txtinicio);
-        txtNtutor = findViewById(R.id.txtNTutor);
-        txtNtea = findViewById(R.id.txtNTea);
-        // Incrementar el tamaño de la letra
+
+        txtinicio  = findViewById(R.id.txtinicio);
+        txtNtutor  = findViewById(R.id.txtNTutor);
+        txtNtea    = findViewById(R.id.txtNTea);
+        buscar     = findViewById(R.id.btnBuscar);
+        rutTeaIn   = findViewById(R.id.txtRutTeaIn);
+        rutTutorIn = findViewById(R.id.txtRutTutorIn);
         incrementa = findViewById(R.id.incrementa);
+        // Formatear a RUT CHILENO
+        rutTeaIn.addTextChangedListener(new RutTextWatcher(rutTeaIn));
+        rutTutorIn.addTextChangedListener(new RutTextWatcher(rutTutorIn));
+
         incrementa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,33 +63,11 @@ public class Activity2 extends AppCompatActivity {
                 }
             }
         });
-        // Boton buscar.
-        buscar   = findViewById(R.id.btnBuscar);
-        // Capturar los rut.
-        rutTeaIn   = findViewById(R.id.txtRutTeaIn);
-        rutTutorIn = findViewById(R.id.txtRutTutorIn);
-        // Formato rut chileno
-        rutTeaIn.addTextChangedListener(new RutTextWatcher(rutTeaIn));
-        rutTutorIn.addTextChangedListener(new RutTextWatcher(rutTutorIn));
-
 
         buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Covertir a String.
-                String RutTea = rutTeaIn.getText().toString();
-                String RutTutor = rutTutorIn.getText().toString();
-
-                // Validar si los campos de texto estan vacios.
-                if(RutTea.isEmpty() || RutTutor.isEmpty()){
-                    Toast.makeText(Activity2.this, "Complete los campos", Toast.LENGTH_SHORT).show();
-                }else{
-                    Intent intent = new Intent(getApplicationContext(), Activity3.class);
-                    intent.putExtra("RutPaciente", RutTea);
-                    intent.putExtra("RutTutor", RutTutor);
-                    startActivity(intent);
-                }
-
+                CesfamPorRut();
             }
         });
 
@@ -102,4 +94,41 @@ public class Activity2 extends AppCompatActivity {
             }
         });
     }
+
+    public void CesfamPorRut(){
+        String RutTea = rutTeaIn.getText().toString();
+        String RutTutor = rutTutorIn.getText().toString();
+        String RutTeaN = obtenerSoloNumerosRut(RutTea);
+        // Validar los campos antes de la consulta
+        if(RutTea.isEmpty() || RutTutor.isEmpty()){
+            Toast.makeText(this, "Ingrese los RUT", Toast.LENGTH_SHORT).show();
+        }else{
+            databaseReference = FirebaseDatabase.getInstance().getReference("PersonaTEA");
+            // Obtener el nombre del cesfam
+            databaseReference.child(RutTeaN).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        String nombreCesfam = dataSnapshot.child("Cesfam").child("Nombre").getValue(String.class);
+                        Intent intent = new Intent(Activity2.this, Activity3.class);
+                        intent.putExtra("NombreCesfam",nombreCesfam);
+                        intent.putExtra("RutTEA", RutTea);
+                        intent.putExtra("RutTutor", RutTutor);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(Activity2.this, "Rut Incorrecto", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Toast.makeText(Activity2.this, "ERROR", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+    public String obtenerSoloNumerosRut(String rutConFormato) {
+        // Elimina caracteres no numéricos
+        return rutConFormato.replaceAll("[^0-9]", "");
+    }
+
 }
