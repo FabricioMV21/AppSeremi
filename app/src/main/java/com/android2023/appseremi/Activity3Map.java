@@ -34,12 +34,12 @@ public class Activity3Map extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(@NonNull GoogleMap map) {
         // Obtener datos de la activity anterior
-        String nombreCesfam = getIntent().getStringExtra("Nombrecesfam");
-        double lat2 = getIntent().getDoubleExtra("Latitud", 0.0);
-        double long2 = getIntent().getDoubleExtra("Longitud", 0.0);
+        String nombreCesfam = getIntent().getStringExtra("NombreCesfam");
+        double latitud = getIntent().getDoubleExtra("Latitud", 0.0);
+        double longitud = getIntent().getDoubleExtra("Longitud", 0.0);
         // Agregar el nuevo marcador
         googleMaps = map;
-        LatLng centroAtencion = new LatLng(lat2,long2);
+        LatLng centroAtencion = new LatLng(latitud,longitud);
         map.addMarker(new MarkerOptions().position(centroAtencion).title(nombreCesfam));
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(centroAtencion,12));
     }
