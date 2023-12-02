@@ -8,6 +8,18 @@
     tools:context=".Activity7">
 
     <TextView
+        android:id="@+id/txtRutTeaOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="rut tea"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.808"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.252" />
+
+    <TextView
         android:id="@+id/txttitulo"
         android:layout_width="190dp"
         android:layout_height="53dp"
@@ -117,7 +129,7 @@
         app:srcCompat="@drawable/voice" />
 
     <Button
-        android:id="@+id/btnVolver"
+        android:id="@+id/btnVolverActividad"
         android:layout_width="143dp"
         android:layout_height="58dp"
         android:backgroundTint="#3C71FB"

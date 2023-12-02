@@ -86,16 +86,17 @@
 
     <ScrollView
         android:layout_width="313dp"
-        android:layout_height="268dp"
+        android:layout_height="216dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.542"
+        app:layout_constraintVertical_bias="0.584"
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/txtOFamiliar"
+            android:id="@+id/txtDetalleTea"
             android:layout_width="243dp"
             android:layout_height="wrap_content"
             android:text="Detalle Grado de TEA - Detalle"
@@ -150,5 +151,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022"
         app:srcCompat="@drawable/voice" />
+
+    <TextView
+        android:id="@+id/txtRutTeaOut"
+        android:layout_width="181dp"
+        android:layout_height="32dp"
+        android:text="RUT TEA"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.353" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

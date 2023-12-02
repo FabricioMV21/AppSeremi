@@ -118,7 +118,7 @@
         app:srcCompat="@drawable/voice" />
 
     <Button
-        android:id="@+id/btnVolver"
+        android:id="@+id/btnVolverCrisis"
         android:layout_width="143dp"
         android:layout_height="58dp"
         android:backgroundTint="#3C71FB"
@@ -129,5 +129,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.922" />
+
+    <TextView
+        android:id="@+id/txtRutTeaOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RUT TEA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.356" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
