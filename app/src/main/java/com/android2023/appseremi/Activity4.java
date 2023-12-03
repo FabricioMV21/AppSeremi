@@ -84,7 +84,7 @@ public class Activity4 extends AppCompatActivity {
 
                     }
                  else {
-                    Toast.makeText(Activity4.this, "Rut Incorrecto", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity4.this, "No Existe", Toast.LENGTH_SHORT).show();
                 }
             }
 

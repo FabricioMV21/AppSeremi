@@ -109,7 +109,7 @@ public class Activity3 extends AppCompatActivity {
                     startActivity(intent);
 
                 } else {
-                    Toast.makeText(Activity3.this, "No Existe La Ubicacion", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity3.this, "No Existe", Toast.LENGTH_SHORT).show();
                 }
             }
 

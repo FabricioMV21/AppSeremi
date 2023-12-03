@@ -17,7 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Activity7 extends AppCompatActivity {
     Button volverActividades;
-    TextView txtActividades, txtRutTeaOut;
+    TextView txtActividades;
     DatabaseReference databaseReference;
 
     @Override
@@ -27,7 +27,6 @@ public class Activity7 extends AppCompatActivity {
 
         volverActividades = findViewById(R.id.btnVolverActividad);
         txtActividades = findViewById(R.id.txtActividades);
-        txtRutTeaOut = findViewById(R.id.txtRutTeaOut);
         // Recibir los rut desde la activity n°2.
         String RutPaciente = getIntent().getStringExtra("RutPaciente");
 
@@ -40,8 +39,6 @@ public class Activity7 extends AppCompatActivity {
             }
         });
 
-        // Asignar el rut al campo de texto.
-        txtRutTeaOut.setText(RutPaciente);
         ConsultarActividades();
     }
 
@@ -55,11 +52,11 @@ public class Activity7 extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    String actividadesTea = dataSnapshot.child("OrientacionClinica").getValue(String.class);
+                    String actividadesTea = dataSnapshot.child("Actividades").getValue(String.class);
                     txtActividades.setText(actividadesTea);
                 }
                 else {
-                    Toast.makeText(Activity7.this, "Rut Incorrecto", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Activity7.this, "No Existe", Toast.LENGTH_SHORT).show();
                 }
             }
 
