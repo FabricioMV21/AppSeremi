@@ -49,7 +49,7 @@ public class Activity6 extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(
                         getApplicationContext(),
-                        Activity7.class);
+                        Activity8.class);
                 intent.putExtra("RutPaciente" ,RutPaciente);
                 startActivity(intent);
 
