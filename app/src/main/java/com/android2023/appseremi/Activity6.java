@@ -57,7 +57,7 @@ public class Activity6 extends AppCompatActivity {
         });
 
         // Asignar el rut al campo de texto.
-        txtRutTeaOut.setText(RutPaciente);
+        //txtRutTeaOut.setText(RutPaciente);
         ConsultarDetalleTEA();
     }
 

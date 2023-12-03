@@ -1,13 +1,15 @@
 package com.android2023.appseremi;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +24,9 @@ public class Activity3 extends AppCompatActivity {
     ImageView incrementa;
     DatabaseReference databaseReference;
     ImageView ubicacion;
+    LinearLayout nCentro;
     int Contador = 0;
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,7 @@ public class Activity3 extends AppCompatActivity {
         txtRutTutor  = findViewById(R.id.txtNombreOut);
         txtNombreCen = findViewById(R.id.txtNomCentro);
         ubicacion    = findViewById(R.id.imgMap);
+        nCentro = findViewById(R.id.cardCentro);
 
         // Recibir los rut desde la activity n°2.
         String RutPaciente = getIntent().getStringExtra("RutTEA");
@@ -43,7 +48,7 @@ public class Activity3 extends AppCompatActivity {
         txtRutTutor.setText(RutTutor);
         txtNombreCen.setText("Ficha Clinica " + NombreCesfam);
 
-        txtRutTea.setOnClickListener(new View.OnClickListener() {
+        nCentro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Activity4.class);
@@ -77,6 +82,11 @@ public class Activity3 extends AppCompatActivity {
                 ObtenerCordenadas();
             }
         });
+
+        GradientDrawable border = new GradientDrawable();
+        border.setColor(Color.YELLOW);
+        border.setStroke(2,Color.GRAY);
+        nCentro.setBackground(border);
     }
     public void ObtenerCordenadas() {
         String RutPaciente = getIntent().getStringExtra("RutTEA");

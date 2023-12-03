@@ -4,6 +4,7 @@ import static androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTI
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -16,12 +17,13 @@ import android.widget.Toast;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnEduc;
+    Button btnEduc, btnSalud;
     ImageView incrementa, lectura;
     TextView txtinicio;
     int Contador = 0;
     private TextToSpeech tts;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +93,8 @@ public class MainActivity extends AppCompatActivity {
                 } */
             }
         });
-
+        btnSalud = findViewById(R.id.btnSalud);
+        btnSalud.setEnabled(false);
 
     }
 

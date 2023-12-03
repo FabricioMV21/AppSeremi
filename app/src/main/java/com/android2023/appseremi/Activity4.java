@@ -4,8 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,7 @@ public class Activity4 extends AppCompatActivity {
 
     TextView txtRutTeaOut, txtNombreOut, txtGrado;
     DatabaseReference databaseReference;
+    LinearLayout cGrado;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,7 @@ public class Activity4 extends AppCompatActivity {
         txtRutTeaOut = findViewById(R.id.txtRutTeaOut);
         txtNombreOut = findViewById(R.id.txtNombreOut);
         txtGrado = findViewById(R.id.txtGrado);
+        cGrado = findViewById(R.id.cardGrado);
 
         // Recibir los rut desde la activity n°2.
         String RutPaciente = getIntent().getStringExtra("RutPaciente");
@@ -55,6 +60,11 @@ public class Activity4 extends AppCompatActivity {
 
         // Metodo para consultar el nombre y grado de TEA
         ConsultarNombreyGradoTEA();
+
+        GradientDrawable border = new GradientDrawable();
+        border.setColor(Color.YELLOW);
+        border.setStroke(2,Color.GRAY);
+        cGrado.setBackground(border);
     }
 
     public void ConsultarNombreyGradoTEA() {
