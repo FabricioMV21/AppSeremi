@@ -33,7 +33,7 @@
         android:id="@+id/textOF"
         android:layout_width="295dp"
         android:layout_height="46dp"
-        android:text="ORIENTACION FAMILIAR"
+        android:text="ORIENTACION FAMILIAR:"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +41,7 @@
         app:layout_constraintHorizontal_bias="0.413"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintVertical_bias="0.6" />
 
     <TextView
         android:id="@+id/textview"
@@ -108,15 +108,15 @@
         android:id="@+id/textOC"
         android:layout_width="295dp"
         android:layout_height="46dp"
-        android:text="ORIENTACION CLINICA"
+        android:text="ORIENTACION CLINICA:"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.307"
+        app:layout_constraintHorizontal_bias="0.387"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.243" />
+        app:layout_constraintVertical_bias="0.262" />
 
     <ScrollView
         android:layout_width="321dp"

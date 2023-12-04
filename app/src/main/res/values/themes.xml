@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.AppSeremi" parent="Base.Theme.AppSeremi" />
+    <style name="Base.Theme.AppSeremi.TextColor" parent="Base.Theme.AppSeremi">
+        <item name="android:textColor">@color/colorTexto</item>
+    </style>
 </resources>
