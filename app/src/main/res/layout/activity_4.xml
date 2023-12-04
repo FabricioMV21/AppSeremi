@@ -61,21 +61,19 @@
         android:id="@+id/textView2"
         android:layout_width="162dp"
         android:layout_height="47dp"
-        android:text="RUT"
-        android:textAlignment="center"
-        android:textSize="34sp"
+        android:text="RUT:"
+        android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.289"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.311" />
-
+        app:layout_constraintVertical_bias="0.302" />
 
     <LinearLayout
         android:id="@+id/cardGrado"
-        android:layout_width="270dp"
-        android:layout_height="138dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +81,8 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.689">
+        app:layout_constraintVertical_bias="0.807"
+        android:background="@drawable/rounded_border">
 
         <TextView
             android:id="@+id/txtGrado2"
@@ -99,10 +98,10 @@
             android:id="@+id/txtGrado"
             android:layout_width="251dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:text="Grado"
             android:textAlignment="center"
             android:textSize="34sp"
-            android:layout_marginTop="15dp"
             tools:layout_editor_absoluteX="140dp"
             tools:layout_editor_absoluteY="593dp" />
 
@@ -119,32 +118,32 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.871" />
+        app:layout_constraintVertical_bias="0.924" />
 
     <TextView
         android:id="@+id/txtRutTeaOut"
-        android:layout_width="154dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="Rut Persona"
         android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintHorizontal_bias="0.318"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/txtNombreOut"
-        android:layout_width="219dp"
-        android:layout_height="52dp"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
         android:text="Nombre Persona"
         android:textSize="26sp"
         app:layout_constraintBottom_toTopOf="@+id/cardGrado"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintHorizontal_bias="0.727"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtRutTeaOut"
-        app:layout_constraintVertical_bias="0.317" />
+        app:layout_constraintVertical_bias="0.634" />
 
     <ImageView
         android:id="@+id/incrementa"
@@ -169,5 +168,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022"
         app:srcCompat="@drawable/voice" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="162dp"
+        android:layout_height="47dp"
+        android:text="Nombre:"
+        android:textSize="26sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.289"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.47" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

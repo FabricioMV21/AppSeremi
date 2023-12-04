@@ -58,9 +58,9 @@
 
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="256dp"
-        android:layout_height="53dp"
+        android:id="@+id/textCrisis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="EN CASO DE CRISIS"
         android:textAlignment="center"
         android:textColor="#F44336"
@@ -73,21 +73,21 @@
         app:layout_constraintVertical_bias="0.296" />
 
     <ScrollView
-        android:layout_width="313dp"
-        android:layout_height="268dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.619"
+        app:layout_constraintVertical_bias="0.407"
         tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/txtCrisis"
-            android:layout_width="243dp"
+            android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:text="Detalle crisis"
-            android:textAlignment="center"
             android:textSize="20sp"
             tools:layout_editor_absoluteX="140dp"
             tools:layout_editor_absoluteY="593dp" />
@@ -119,8 +119,8 @@
 
     <Button
         android:id="@+id/btnVolverCrisis"
-        android:layout_width="143dp"
-        android:layout_height="58dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="#3C71FB"
         android:text="VOLVER"
         android:textSize="20sp"

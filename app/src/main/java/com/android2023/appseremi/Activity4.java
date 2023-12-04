@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,12 +25,16 @@ import org.w3c.dom.Text;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Locale;
 
 public class Activity4 extends AppCompatActivity {
 
     TextView txtRutTeaOut, txtNombreOut, txtGrado;
     DatabaseReference databaseReference;
     LinearLayout cGrado;
+    ImageView incrementa,lectura;
+    private TextToSpeech tts;
+    int Contador = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +44,13 @@ public class Activity4 extends AppCompatActivity {
         txtGrado = findViewById(R.id.txtGrado);
         cGrado = findViewById(R.id.cardGrado);
 
+        cGrado.setBackgroundResource(R.drawable.rounded_border);
+
         // Recibir los rut desde la activity n°2.
         String RutPaciente = getIntent().getStringExtra("RutPaciente");
 
         //Pasar al siguiente activity y enviar el rutTea
-        txtGrado.setOnClickListener(new View.OnClickListener() {
+        cGrado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(
@@ -53,7 +61,24 @@ public class Activity4 extends AppCompatActivity {
 
             }
         });
+        // Incrementar el tamaño de la letra
+        incrementa = findViewById(R.id.incrementa);
+        incrementa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Contador++;
+                txtRutTeaOut.setTextSize(30);
+                txtNombreOut.setTextSize(30);
+                txtGrado.setTextSize(44);
 
+                if(Contador == 2){
+                    txtRutTeaOut.setTextSize(26);
+                    txtNombreOut.setTextSize(26);
+                    txtGrado.setTextSize(34);
+                    Contador = 0;
+                }
+            }
+        });
 
         // Asignar el rut al campo de texto.
         txtRutTeaOut.setText(RutPaciente);
@@ -61,10 +86,27 @@ public class Activity4 extends AppCompatActivity {
         // Metodo para consultar el nombre y grado de TEA
         ConsultarNombreyGradoTEA();
 
-        GradientDrawable border = new GradientDrawable();
-        border.setColor(Color.YELLOW);
-        border.setStroke(2,Color.GRAY);
-        cGrado.setBackground(border);
+        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status != TextToSpeech.ERROR) {
+                    Locale locSpanish = new Locale("spa", "ESP");
+                    tts.setLanguage(locSpanish);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Falló la inicialización", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        // IMW Boton Lectura.
+        lectura = findViewById(R.id.lectura);
+        lectura.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tts.speak("Rut "+ txtRutTeaOut.getText().toString() + " Nombre "+ txtNombreOut.getText().toString()+"." +" Grado TEA CEA "+txtGrado.getText().toString()+"."+
+                        " Presione sobre el grado para ver los detalles", TextToSpeech.QUEUE_FLUSH,null);
+            }
+        });
     }
 
     public void ConsultarNombreyGradoTEA() {

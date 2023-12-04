@@ -41,6 +41,6 @@ public class Activity3Map extends AppCompatActivity implements OnMapReadyCallbac
         googleMaps = map;
         LatLng centroAtencion = new LatLng(latitud,longitud);
         map.addMarker(new MarkerOptions().position(centroAtencion).title(nombreCesfam));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(centroAtencion,12));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(centroAtencion,16));
     }
 }
