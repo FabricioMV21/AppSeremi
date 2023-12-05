@@ -45,6 +45,7 @@ public class Activity2 extends AppCompatActivity {
         rutTeaIn.addTextChangedListener(new RutTextWatcher(rutTeaIn));
         rutTutorIn.addTextChangedListener(new RutTextWatcher(rutTutorIn));
 
+        //Incremento textos
         incrementa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
